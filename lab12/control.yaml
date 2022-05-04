@@ -1,0 +1,41 @@
+---
+- name: setup a repository on the control node
+  hosts: localhost
+  vars_files:
+  - l12_vars/control.yaml
+  tasks:
+  - name: install the {{ webserver.name }}
+    package:
+      name: "{{ webserver.package }}"
+      state: latest
+  - name: start the {{ webserver.name }}
+    service:
+      name: "{{ webserver.service }}"
+      enabled: yes
+      state: started
+  - name: enable firewall for the {{ webserver.name }}
+    firewalld:
+      service: "{{ webserver.firewall_service }}"
+      state: enabled
+      permanent: yes
+      immediate: yes
+
+  - name: obtain the yumdownloader program to get package files and createrepo to analyze and create metadata
+    package:
+      name:
+      - yum-utils
+      - createrepo
+      state: latest
+  - name: create a directory in the web root
+    file:
+      path: "{{ repository.root_dir }}"
+      state: directory
+  - name: download the packages for the repository
+    command:
+      chdir: "{{ repository.root_dir }}"
+      cmd: "yumdownloader --resolve {{ repository.packages|join(' ') }}"
+    register: output
+    failed_when: false
+  - name: create a repository index
+    command: "createrepo {{ repository.root_dir }}"
+...

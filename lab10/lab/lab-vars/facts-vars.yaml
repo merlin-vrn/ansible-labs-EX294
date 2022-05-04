@@ -1,0 +1,2 @@
+remote_dir: /etc/ansible/facts.d
+facts_file: custom.fact

@@ -1,0 +1,26 @@
+---
+- name: Install local facts to file servers
+  hosts: file
+  tasks:
+    - name: copy local facts file to selected nodes
+      copy:
+        src: fileserver.fact
+        dest: /etc/ansible/facts.d/
+- name: Install samba service based on local facts
+  hosts: file
+  vars:
+    ansible_python_interpreter: auto
+  tasks:
+    - name: show local facts
+      debug:
+        var: ansible_local
+    - name: install file services
+      yum:
+        name: "{{ ansible_local.fileserver.install.package }}"
+        state: latest
+    - name: enable and start services
+      service:
+        name: "{{ ansible_local.fileserver.install.service }}"
+        enabled: "{{ ansible_local.fileserver.install.enabled }}"
+        state: started
+...

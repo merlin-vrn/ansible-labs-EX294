@@ -1,0 +1,6 @@
+---
+# handlers file for apache_vhost
+- name: reload apache
+  service:
+    name: "{{ apache_service }}"
+    state: reloaded

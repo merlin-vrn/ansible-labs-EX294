@@ -1,0 +1,36 @@
+---
+- name: create users and groups
+  hosts: nodes
+  vars_files:
+  - vars/users.yaml
+  - vars/groups.yaml
+  - vars/passwords.yaml
+  tasks:
+  - name: configure sudoers
+    template:
+      src: templates/sudoers.j2
+      dest: /etc/sudoers.d/sudogroups
+      mode: 0400
+      validate: 'visudo -cf %s'
+  - name: check and create groups
+    group:
+      name: "{{ item.name }}"
+    loop: "{{ usergroups }}"
+  - name: create user personal groups
+    group:
+      name: "{{ item.name }}"
+    loop: "{{ users }}"
+  - name: check and create users
+    user:
+      name: "{{ item.name }}"
+      group: "{{ item.name }}"
+      groups: "{{ item.groups }}"
+      update_password: on_create
+      password: "{{ passwords[item.name]|password_hash('sha512', lookup('password', '/dev/null length=8 chars=ascii_letters,digits')) }}"
+    loop: "{{ users }}"
+  - name: copy SSH keys
+    authorized_key:
+      user: "{{ item.name }}"
+      key: "{{ lookup('file', 'files/' + item.name + '/id_rsa.pub') }}"
+    loop: "{{ users }}"
+...

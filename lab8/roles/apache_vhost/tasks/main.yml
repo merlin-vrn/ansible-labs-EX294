@@ -1,0 +1,22 @@
+---
+# tasks file for apache_vhost
+- name: check if package {{ apache_package }} is installed
+  command:
+      cmd: rpm -q {{ apache_package }}
+      warn: false # don't emit a warning; I don't want to use yum or package module because I don't want to install anything
+  changed_when: false
+  failed_when: false
+  register: installed_check
+- name: fail if it is not
+  fail:
+    msg: "Install {{ apache_package }} first and ensure it is started, firewall and selinux are enabled; use e.g. pre_tasks for that"
+  when: installed_check.rc != 0
+- name: Install vhost {{ vhost_name }}
+  template:
+    src: vhost.j2
+    dest: "{{ vhost_file }}"
+  notify: reload apache
+- name: create a document root
+  file:
+    path: "{{ vhost_documentroot }}"
+    state: directory

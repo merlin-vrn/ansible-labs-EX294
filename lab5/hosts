@@ -1,0 +1,11 @@
+ansible3
+
+[lamp]
+ansible1
+
+[file]
+ansible2
+
+[nodes:children]
+lamp
+file

@@ -1,0 +1,296 @@
+2022-04-30 21:47:22,481 p=16433 u=merlin n=ansible | PLAY [lab6 install and run mariadb database only on RHEL8 hosts; only set root password where mariadb was successfully started] *****
+2022-04-30 21:47:22,509 p=16433 u=merlin n=ansible | TASK [Gathering Facts] **************************************************************************************************************
+2022-04-30 21:47:26,117 p=16433 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:47:26,128 p=16433 u=merlin n=ansible | ok: [ansible3]
+2022-04-30 21:47:26,155 p=16433 u=merlin n=ansible | TASK [install pakacges] *************************************************************************************************************
+2022-04-30 21:47:31,629 p=16433 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:47:56,900 p=16433 u=merlin n=ansible | changed: [ansible3]
+2022-04-30 21:47:56,934 p=16433 u=merlin n=ansible | TASK [start services] ***************************************************************************************************************
+2022-04-30 21:47:59,384 p=16433 u=merlin n=ansible | ok: [ansible1] => (item=mariadb)
+2022-04-30 21:48:03,998 p=16433 u=merlin n=ansible | changed: [ansible3] => (item=mariadb)
+2022-04-30 21:48:04,010 p=16433 u=merlin n=ansible | RUNNING HANDLER [set mysql root password for the server] ****************************************************************************
+2022-04-30 21:48:04,160 p=16433 u=merlin n=ansible | fatal: [ansible3]: FAILED! => {"msg": "Attempting to decrypt but no vault secrets found"}
+2022-04-30 21:48:04,161 p=16433 u=merlin n=ansible | RUNNING HANDLER [create password drop file as recommended in the module] ************************************************************
+2022-04-30 21:48:04,166 p=16433 u=merlin n=ansible | NO MORE HOSTS LEFT ******************************************************************************************************************
+2022-04-30 21:48:04,169 p=16433 u=merlin n=ansible | PLAY RECAP **************************************************************************************************************************
+2022-04-30 21:48:04,170 p=16433 u=merlin n=ansible | ansible1                   : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2022-04-30 21:48:04,170 p=16433 u=merlin n=ansible | ansible3                   : ok=3    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2022-04-30 21:48:43,430 p=16513 u=merlin n=ansible | ERROR! the playbook: nstall_dbservice.yaml could not be found
+2022-04-30 21:48:52,484 p=16515 u=merlin n=ansible | PLAY [lab6 install and run mariadb database only on RHEL8 hosts; only set root password where mariadb was successfully started] *****
+2022-04-30 21:48:52,517 p=16515 u=merlin n=ansible | TASK [Gathering Facts] **************************************************************************************************************
+2022-04-30 21:48:55,414 p=16515 u=merlin n=ansible | ok: [ansible3]
+2022-04-30 21:48:56,359 p=16515 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:48:56,387 p=16515 u=merlin n=ansible | TASK [install pakacges] *************************************************************************************************************
+2022-04-30 21:49:01,543 p=16515 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:49:01,744 p=16515 u=merlin n=ansible | ok: [ansible3]
+2022-04-30 21:49:01,772 p=16515 u=merlin n=ansible | TASK [start services] ***************************************************************************************************************
+2022-04-30 21:49:04,051 p=16515 u=merlin n=ansible | ok: [ansible1] => (item=mariadb)
+2022-04-30 21:49:04,077 p=16515 u=merlin n=ansible | ok: [ansible3] => (item=mariadb)
+2022-04-30 21:49:04,087 p=16515 u=merlin n=ansible | PLAY RECAP **************************************************************************************************************************
+2022-04-30 21:49:04,088 p=16515 u=merlin n=ansible | ansible1                   : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2022-04-30 21:49:04,088 p=16515 u=merlin n=ansible | ansible3                   : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2022-04-30 21:50:29,087 p=16586 u=merlin n=ansible | ansible3 | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "msg": "value of state must be one of: reloaded, restarted, started, stopped, got: stoppped"
+}
+2022-04-30 21:50:51,692 p=16611 u=merlin n=ansible | ansible3 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": true,
+    "name": "mariadb",
+    "state": "stopped",
+    "status": {
+        "ActiveEnterTimestamp": "Sat 2022-04-30 21:48:03 +04",
+        "ActiveEnterTimestampMonotonic": "15904177980",
+        "ActiveExitTimestampMonotonic": "0",
+        "ActiveState": "active",
+        "After": "system.slice basic.target systemd-tmpfiles-setup.service tmp.mount network.target sysinit.target systemd-journald.socket -.mount",
+        "AllowIsolate": "no",
+        "AllowedCPUs": "",
+        "AllowedMemoryNodes": "",
+        "AmbientCapabilities": "",
+        "AssertResult": "yes",
+        "AssertTimestamp": "Sat 2022-04-30 21:47:59 +04",
+        "AssertTimestampMonotonic": "15900063680",
+        "Before": "multi-user.target shutdown.target",
+        "BlockIOAccounting": "no",
+        "BlockIOWeight": "[not set]",
+        "CPUAccounting": "no",
+        "CPUAffinity": "",
+        "CPUAffinityFromNUMA": "no",
+        "CPUQuotaPerSecUSec": "infinity",
+        "CPUQuotaPeriodUSec": "infinity",
+        "CPUSchedulingPolicy": "0",
+        "CPUSchedulingPriority": "0",
+        "CPUSchedulingResetOnFork": "no",
+        "CPUShares": "[not set]",
+        "CPUUsageNSec": "[not set]",
+        "CPUWeight": "[not set]",
+        "CacheDirectoryMode": "0755",
+        "CanFreeze": "yes",
+        "CanIsolate": "no",
+        "CanReload": "no",
+        "CanStart": "yes",
+        "CanStop": "yes",
+        "CapabilityBoundingSet": "cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf",
+        "CollectMode": "inactive",
+        "ConditionResult": "yes",
+        "ConditionTimestamp": "Sat 2022-04-30 21:47:59 +04",
+        "ConditionTimestampMonotonic": "15900063679",
+        "ConfigurationDirectoryMode": "0755",
+        "Conflicts": "shutdown.target",
+        "ControlGroup": "/system.slice/mariadb.service",
+        "ControlPID": "0",
+        "DefaultDependencies": "yes",
+        "DefaultMemoryLow": "0",
+        "DefaultMemoryMin": "0",
+        "Delegate": "no",
+        "Description": "MariaDB 10.3 database server",
+        "DevicePolicy": "auto",
+        "Documentation": "man:mysqld(8) https://mariadb.com/kb/en/library/systemd/",
+        "DynamicUser": "no",
+        "EffectiveCPUs": "",
+        "EffectiveMemoryNodes": "",
+        "ExecMainCode": "0",
+        "ExecMainExitTimestampMonotonic": "0",
+        "ExecMainPID": "5367",
+        "ExecMainStartTimestamp": "Sat 2022-04-30 21:48:03 +04",
+        "ExecMainStartTimestampMonotonic": "15903836487",
+        "ExecMainStatus": "0",
+        "ExecStart": "{ path=/usr/libexec/mysqld ; argv[]=/usr/libexec/mysqld --basedir=/usr $MYSQLD_OPTS $_WSREP_NEW_CLUSTER ; ignore_errors=no ; start_time=[Sat 2022-04-30 21:48:03 +04] ; stop_time=[n/a] ; pid=5367 ; code=(null) ; status=0/0 }",
+        "ExecStartPost": "{ path=/usr/libexec/mysql-check-upgrade ; argv[]=/usr/libexec/mysql-check-upgrade ; ignore_errors=no ; start_time=[Sat 2022-04-30 21:48:03 +04] ; stop_time=[Sat 2022-04-30 21:48:03 +04] ; pid=5398 ; code=exited ; status=0 }",
+        "ExecStartPre": "{ path=/usr/libexec/mysql-prepare-db-dir ; argv[]=/usr/libexec/mysql-prepare-db-dir mariadb.service ; ignore_errors=no ; start_time=[Sat 2022-04-30 21:47:59 +04] ; stop_time=[Sat 2022-04-30 21:48:03 +04] ; pid=5263 ; code=exited ; status=0 }",
+        "FailureAction": "none",
+        "FileDescriptorStoreMax": "0",
+        "FragmentPath": "/usr/lib/systemd/system/mariadb.service",
+        "FreezerState": "running",
+        "GID": "27",
+        "Group": "mysql",
+        "GuessMainPID": "yes",
+        "IOAccounting": "no",
+        "IOSchedulingClass": "0",
+        "IOSchedulingPriority": "0",
+        "IOWeight": "[not set]",
+        "IPAccounting": "no",
+        "IPEgressBytes": "18446744073709551615",
+        "IPEgressPackets": "18446744073709551615",
+        "IPIngressBytes": "18446744073709551615",
+        "IPIngressPackets": "18446744073709551615",
+        "Id": "mariadb.service",
+        "IgnoreOnIsolate": "no",
+        "IgnoreSIGPIPE": "yes",
+        "InactiveEnterTimestampMonotonic": "0",
+        "InactiveExitTimestamp": "Sat 2022-04-30 21:47:59 +04",
+        "InactiveExitTimestampMonotonic": "15900066458",
+        "InvocationID": "7da163db8a134eefbf9deaf3d424c63f",
+        "JobRunningTimeoutUSec": "infinity",
+        "JobTimeoutAction": "none",
+        "JobTimeoutUSec": "infinity",
+        "KeyringMode": "private",
+        "KillMode": "process",
+        "KillSignal": "15",
+        "LimitAS": "infinity",
+        "LimitASSoft": "infinity",
+        "LimitCORE": "infinity",
+        "LimitCORESoft": "0",
+        "LimitCPU": "infinity",
+        "LimitCPUSoft": "infinity",
+        "LimitDATA": "infinity",
+        "LimitDATASoft": "infinity",
+        "LimitFSIZE": "infinity",
+        "LimitFSIZESoft": "infinity",
+        "LimitLOCKS": "infinity",
+        "LimitLOCKSSoft": "infinity",
+        "LimitMEMLOCK": "65536",
+        "LimitMEMLOCKSoft": "65536",
+        "LimitMSGQUEUE": "819200",
+        "LimitMSGQUEUESoft": "819200",
+        "LimitNICE": "0",
+        "LimitNICESoft": "0",
+        "LimitNOFILE": "262144",
+        "LimitNOFILESoft": "1024",
+        "LimitNPROC": "7106",
+        "LimitNPROCSoft": "7106",
+        "LimitRSS": "infinity",
+        "LimitRSSSoft": "infinity",
+        "LimitRTPRIO": "0",
+        "LimitRTPRIOSoft": "0",
+        "LimitRTTIME": "infinity",
+        "LimitRTTIMESoft": "infinity",
+        "LimitSIGPENDING": "7106",
+        "LimitSIGPENDINGSoft": "7106",
+        "LimitSTACK": "infinity",
+        "LimitSTACKSoft": "8388608",
+        "LoadState": "loaded",
+        "LockPersonality": "no",
+        "LogLevelMax": "-1",
+        "LogRateLimitBurst": "0",
+        "LogRateLimitIntervalUSec": "0",
+        "LogsDirectoryMode": "0755",
+        "MainPID": "5367",
+        "MemoryAccounting": "yes",
+        "MemoryCurrent": "89694208",
+        "MemoryDenyWriteExecute": "no",
+        "MemoryHigh": "infinity",
+        "MemoryLimit": "infinity",
+        "MemoryLow": "0",
+        "MemoryMax": "infinity",
+        "MemoryMin": "0",
+        "MemorySwapMax": "infinity",
+        "MountAPIVFS": "no",
+        "MountFlags": "",
+        "NFileDescriptorStore": "0",
+        "NRestarts": "0",
+        "NUMAMask": "",
+        "NUMAPolicy": "n/a",
+        "Names": "mariadb.service",
+        "NeedDaemonReload": "no",
+        "Nice": "0",
+        "NoNewPrivileges": "no",
+        "NonBlocking": "no",
+        "NotifyAccess": "main",
+        "OOMScoreAdjust": "0",
+        "OnFailureJobMode": "replace",
+        "PermissionsStartOnly": "no",
+        "Perpetual": "no",
+        "PrivateDevices": "no",
+        "PrivateMounts": "no",
+        "PrivateNetwork": "no",
+        "PrivateTmp": "yes",
+        "PrivateUsers": "no",
+        "ProtectControlGroups": "no",
+        "ProtectHome": "no",
+        "ProtectKernelModules": "no",
+        "ProtectKernelTunables": "no",
+        "ProtectSystem": "no",
+        "RefuseManualStart": "no",
+        "RefuseManualStop": "no",
+        "RemainAfterExit": "no",
+        "RemoveIPC": "no",
+        "Requires": "-.mount system.slice sysinit.target",
+        "RequiresMountsFor": "/var/tmp",
+        "Restart": "on-abort",
+        "RestartUSec": "5s",
+        "RestrictNamespaces": "no",
+        "RestrictRealtime": "no",
+        "RestrictSUIDSGID": "no",
+        "Result": "success",
+        "RootDirectoryStartOnly": "no",
+        "RuntimeDirectoryMode": "0755",
+        "RuntimeDirectoryPreserve": "no",
+        "RuntimeMaxUSec": "infinity",
+        "SameProcessGroup": "no",
+        "SecureBits": "0",
+        "SendSIGHUP": "no",
+        "SendSIGKILL": "no",
+        "Slice": "system.slice",
+        "StandardError": "inherit",
+        "StandardInput": "null",
+        "StandardInputData": "",
+        "StandardOutput": "journal",
+        "StartLimitAction": "none",
+        "StartLimitBurst": "5",
+        "StartLimitIntervalUSec": "10s",
+        "StartupBlockIOWeight": "[not set]",
+        "StartupCPUShares": "[not set]",
+        "StartupCPUWeight": "[not set]",
+        "StartupIOWeight": "[not set]",
+        "StateChangeTimestamp": "Sat 2022-04-30 21:48:03 +04",
+        "StateChangeTimestampMonotonic": "15904177980",
+        "StateDirectoryMode": "0755",
+        "StatusErrno": "0",
+        "StatusText": "Taking your SQL requests now...",
+        "StopWhenUnneeded": "no",
+        "SubState": "running",
+        "SuccessAction": "none",
+        "SyslogFacility": "3",
+        "SyslogLevel": "6",
+        "SyslogLevelPrefix": "yes",
+        "SyslogPriority": "30",
+        "SystemCallErrorNumber": "0",
+        "TTYReset": "no",
+        "TTYVHangup": "no",
+        "TTYVTDisallocate": "no",
+        "TasksAccounting": "yes",
+        "TasksCurrent": "30",
+        "TasksMax": "11369",
+        "TimeoutStartUSec": "5min",
+        "TimeoutStopUSec": "5min",
+        "TimerSlackNSec": "50000",
+        "Transient": "no",
+        "Type": "notify",
+        "UID": "27",
+        "UMask": "0007",
+        "UnitFilePreset": "disabled",
+        "UnitFileState": "enabled",
+        "User": "mysql",
+        "UtmpMode": "init",
+        "WantedBy": "multi-user.target",
+        "WatchdogTimestamp": "Sat 2022-04-30 21:48:03 +04",
+        "WatchdogTimestampMonotonic": "15904062355",
+        "WatchdogUSec": "0"
+    }
+}
+2022-04-30 21:51:05,449 p=16633 u=merlin n=ansible | PLAY [lab6 install and run mariadb database only on RHEL8 hosts; only set root password where mariadb was successfully started] *****
+2022-04-30 21:51:05,477 p=16633 u=merlin n=ansible | TASK [Gathering Facts] **************************************************************************************************************
+2022-04-30 21:51:08,418 p=16633 u=merlin n=ansible | ok: [ansible3]
+2022-04-30 21:51:08,519 p=16633 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:51:08,546 p=16633 u=merlin n=ansible | TASK [install pakacges] *************************************************************************************************************
+2022-04-30 21:51:14,031 p=16633 u=merlin n=ansible | ok: [ansible1]
+2022-04-30 21:51:14,066 p=16633 u=merlin n=ansible | ok: [ansible3]
+2022-04-30 21:51:14,099 p=16633 u=merlin n=ansible | TASK [start services] ***************************************************************************************************************
+2022-04-30 21:51:16,306 p=16633 u=merlin n=ansible | ok: [ansible1] => (item=mariadb)
+2022-04-30 21:51:16,981 p=16633 u=merlin n=ansible | changed: [ansible3] => (item=mariadb)
+2022-04-30 21:51:16,989 p=16633 u=merlin n=ansible | RUNNING HANDLER [set mysql root password for the server] ****************************************************************************
+2022-04-30 21:51:18,760 p=16633 u=merlin n=ansible | [WARNING]: Module did not set no_log for update_password
+
+2022-04-30 21:51:18,761 p=16633 u=merlin n=ansible | changed: [ansible3]
+2022-04-30 21:51:18,762 p=16633 u=merlin n=ansible | RUNNING HANDLER [create password drop file as recommended in the module] ************************************************************
+2022-04-30 21:51:21,696 p=16633 u=merlin n=ansible | changed: [ansible3]
+2022-04-30 21:51:21,703 p=16633 u=merlin n=ansible | PLAY RECAP **************************************************************************************************************************
+2022-04-30 21:51:21,704 p=16633 u=merlin n=ansible | ansible1                   : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2022-04-30 21:51:21,707 p=16633 u=merlin n=ansible | ansible3                   : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

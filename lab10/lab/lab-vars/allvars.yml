@@ -1,0 +1,4 @@
+---
+web_root: /var/www/html
+ftp_root: /var/ftp
+firewall: firewalld

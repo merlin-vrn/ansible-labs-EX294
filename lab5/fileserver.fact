@@ -1,0 +1,4 @@
+[install]
+package = samba
+service = smb
+enabled = true

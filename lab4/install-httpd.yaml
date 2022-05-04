@@ -1,0 +1,45 @@
+---
+- name: install a httpd server
+  hosts: ansible2
+  vars:
+    ansible_python_interpreter: auto
+  tasks:
+  - name: install packages
+    yum:
+      name:
+        - httpd
+        - firewalld
+      state: latest
+  - name: start httpd
+    service:
+      name: httpd
+      enabled: True
+      state: started
+  - name: start firewalld
+    service:
+      name: firewalld
+      enabled: True
+      state: started
+  - name: firewall setup
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+      immediate: yes
+  - name: create an initial file
+    copy:
+      content: "hello, this is {{ ansible_hostname }}"
+      dest: /var/www/html/index.html
+- name: test if server is available
+  hosts: localhost
+  become: False
+  gather_facts: False
+  tasks:
+  - name: retrieve the welcome file
+    uri:
+      url: http://ansible2/
+      return_content: True
+    register: retrieved
+  - name: show something
+    debug:
+      var: retrieved

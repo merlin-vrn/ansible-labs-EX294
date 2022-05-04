@@ -1,0 +1,18 @@
+---
+- name: configure a second NIC
+  hosts: ansible3
+  vars:
+    ansible_python_interpreter: auto
+  roles:
+  - role: rhel-system-roles.network
+    vars:
+      network_connections:
+      - name: ens19
+        state: up
+        type: ethernet
+        mac: 0E:C8:4E:C0:CC:13
+#       interface_name: ens19
+        ip:
+          dhcp4: yes
+        autoconnect: yes
+        persistent_state: absent

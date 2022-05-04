@@ -1,0 +1,20 @@
+---
+- name: network setup on 2nd NIC
+  hosts: all
+  vars:
+    ifname: ens19
+    address: 192.168.4.30/24
+  tasks:
+  - name: set up address on 2nd interface, if two interfaces are available
+    block:
+    - name: check hosts and print findings
+      debug:
+        msg: the host {{ ansible_facts.hostname }} has additinal interface
+    - name: configure additional interface
+      nmcli:
+        conn_name: "additional"
+        ifname: "{{ ifname }}"
+        ip4: "{{ address }}"
+        state: present
+        type: ethernet
+    when: ansible_facts.interfaces | length > 2 # don't forget there'll be loopback interface too

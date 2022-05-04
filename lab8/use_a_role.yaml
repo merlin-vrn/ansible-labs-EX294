@@ -1,0 +1,14 @@
+---
+- name: install test vhost
+  vars:
+    ansible_python_interpreter: auto
+  hosts: lamp
+  pre_tasks:
+  - name: ensure selinux python utils are installed
+    package:
+      name: policycoreutils-python-utils
+  roles:
+  - role: apache_vhost
+    vars:
+      vhost_name: "{{ ansible_hostname }}"
+      vhost_servername: "{{ ansible_hostname }}"

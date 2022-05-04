@@ -1,0 +1,5 @@
+ansible3
+
+[nodes]
+ansible1
+ansible2

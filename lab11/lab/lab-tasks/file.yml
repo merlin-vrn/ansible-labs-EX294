@@ -1,0 +1,26 @@
+---
+- name: install services
+  yum:
+    name:
+    - "{{ ansible_local.custom.packages.smb_package }}"
+    - "{{ ansible_local.custom.packages.ftp_package }}"
+    state: latest
+
+- name: start services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+  - "{{ ansible_local.custom.services.smb_service }}"
+  - "{{ ansible_local.custom.services.ftp_service }}"
+
+- name: open ports in the firewall
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    immediate: true
+    permanent: true
+  loop:
+  - ftp
+  - samba

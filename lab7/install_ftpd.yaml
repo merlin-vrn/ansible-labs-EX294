@@ -1,0 +1,66 @@
+---
+- name: lab7 installing the public anonymous FTP server
+  vars:
+    ansible_python_interpreter: auto
+    anonymous_enable: yes
+    local_enable: yes
+    write_enable: yes
+    anon_upload_enable: yes
+    ftp_directory: /var/ftp/pub
+  hosts: file
+  tasks:
+  - name: install vsftpd and selinux python package
+    package:
+      name:
+        - vsftpd
+        - policycoreutils-python-utils
+      state: present
+    notify: restart ftp service
+  - name: set vsftpd configuration
+    template:
+      src: templates/vsftpd.j2
+      dest: /etc/vsftpd/vsftpd.conf
+    notify: restart ftp service
+  - name: configure selinux on target directory
+    sefcontext:
+      target: "{{ ftp_directory }}"
+      setype: public_content_rw_t
+    notify:
+      - restore selinux context
+  - name: set selinux boolean
+    seboolean:
+      name: ftpd_anon_write
+      state: yes
+      persistent: yes
+  - name: set modes on target directory
+    file:
+      path: "{{ ftp_directory }}"
+      mode: "u=rwx,g=rwx,o=rwx"
+  - name: permit ftp in firewall
+    firewalld:
+      service: ftp
+      permanent: yes
+      immediate: yes
+      state: enabled
+  handlers:
+  - name: restore selinux context
+    command: restorecon -vR {{ ftp_directory }}
+  - name: restart ftp service
+    service:
+      name: vsftpd
+      state: restarted
+      enabled: yes
+- name: check ftp by uploading file
+  hosts: localhost
+  tasks:
+  - name: install ftp client
+    package:
+      name: lftp
+  - name: upload a file
+    shell: >
+      lftp ansible2 <<EOF
+      cd pub
+      put /etc/hosts
+      EOF
+
+...

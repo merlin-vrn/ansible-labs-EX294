@@ -1,0 +1,45 @@
+---
+- name: manage a drive
+  hosts: localhost
+  vars_files:
+  - drive-vars.yaml
+  tasks:
+  - name: check packages
+    package:
+      name:
+      - lvm2
+      - parted
+  - name: check partitions
+    parted:
+      device: "{{ device }}"
+      number: "{{ item.number }}"
+      flags:
+      - lvm
+      part_start: "{{ item.start }}"
+      part_end: "{{ item.end }}"
+      state: present
+    loop: "{{ partitions }}"
+  - name: check VGs
+    lvg:
+      vg: "{{ item.name }}"
+      pvs: "{{ item.pvs }}"
+    loop: "{{ vgs }}"
+  - name: check LVs
+    lvol:
+      lv: "{{ item.name }}"
+      size: "{{ item.size }}"
+      vg: "{{ item.vg }}"
+    loop: "{{ lvs }}"
+  - name: check filesystems
+    filesystem:
+      dev: /dev/{{ item.vg }}/{{ item.name }}
+      fstype: ext4
+    loop: "{{ lvs }}"
+  - name: check mounts
+    mount:
+      fstype: ext4
+      opts: nofail
+      path: "{{ item.mp }}"
+      state: mounted
+      src: /dev/{{ item.vg }}/{{ item.name }}
+    loop: "{{ lvs }}"

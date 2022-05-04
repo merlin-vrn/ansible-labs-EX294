@@ -1,0 +1,31 @@
+---
+  - name: install and start the servers
+    yum:
+      name:
+        - "{{ ansible_local.custom.packages.ftp_package }}"
+        - "{{ ansible_local.custom.packages.web_package }}" 
+      state: latest
+
+  - name: start database server
+    service:
+      name: "{{ ansible_local.custom.services.ftp_service }}"
+      state: started
+      enabled: true
+
+  - name: start the web service
+    service: 
+      name: "{{ ansible_local.custom.services.web_service }}"
+      state: started
+      enabled: true
+
+  - name: open the port for the web server
+    firewalld:
+      service: http
+      state: enabled
+      immediate: true
+      permanent: true
+
+  - name: create index.html
+    copy:
+      content: "{{ ansible_fqdn }}({{ ansible_default_ipv4.address }}) managed by Ansible\n"
+      dest: "{{ web_root }}/index.html"

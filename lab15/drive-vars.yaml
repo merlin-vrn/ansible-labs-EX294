@@ -1,0 +1,18 @@
+---
+device: /dev/sdb
+partitions:
+- number: 1
+  start: 1MiB
+  end: 100%
+vgs:
+- name: web
+  pvs: "{{ device }}{{ partitions[0].number }}"
+lvs:
+- name: data
+  size: 300M
+  vg: "{{ vgs[0].name }}"
+  mp: /var/www
+- name: logs
+  size: 300M
+  vg: "{{ vgs[0].name }}"
+  mp: /var/log/httpd

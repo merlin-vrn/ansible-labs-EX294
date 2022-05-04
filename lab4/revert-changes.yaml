@@ -1,0 +1,22 @@
+---
+- name: remove httpd services
+  hosts: ansible2
+  vars:
+    ansible_python_interpreter: auto  
+  tasks:
+  - name: disable http firewall
+    firewalld:
+      service: http
+      permanent: true
+      state: disabled
+      immediate: yes
+  - name: remove content file
+    file:
+      path: /var/www/html/index.html
+      state: absent
+  - name: remove httpd package
+    yum:
+      name:
+        - httpd
+      state: absent
+...

@@ -1,0 +1,10 @@
+- name: install the firewall
+  package:
+    name: "{{ firewall }}"
+    state: latest
+
+- name: start the firewall
+  service:
+    name: "{{ firewall }}"
+    state: started
+    enabled: true

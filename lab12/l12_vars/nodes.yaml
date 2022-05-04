@@ -1,0 +1,5 @@
+---
+repo_url: http://control.example.org/repo
+packages_to_install:
+- nmap
+...

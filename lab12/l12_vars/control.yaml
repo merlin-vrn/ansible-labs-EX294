@@ -1,0 +1,15 @@
+---
+webserver:
+  name: Apache HTTPD
+  package: httpd
+  service: httpd
+  firewall_service: http
+
+repository:
+  packages: # which packages to download and put into the repository
+  - nginx
+  - nmap
+  - samba
+  - cyrus-imapd
+  root_dir: /var/www/html/repo
+...

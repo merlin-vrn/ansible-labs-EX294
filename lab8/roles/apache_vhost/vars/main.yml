@@ -1,0 +1,4 @@
+---
+# vars file for apache_vhost
+apache_package: httpd
+apache_service: httpd

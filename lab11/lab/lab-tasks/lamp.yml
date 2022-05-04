@@ -1,0 +1,28 @@
+---
+- name: install services
+  yum:
+    name:
+    - "{{ ansible_local.custom.packages.db_package }}"
+    - "{{ ansible_local.custom.packages.web_package }}"
+    state: latest
+
+- name: start services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+  - "{{ ansible_local.custom.services.db_service }}"
+  - "{{ ansible_local.custom.services.web_service }}"
+
+- name: open the port for the web server
+  firewalld:
+    service: http
+    state: enabled
+    immediate: true
+    permanent: true
+
+- name: create index.html
+  copy:
+    content: "{{ ansible_fqdn }}({{ ansible_default_ipv4.address }}) managed by Ansible\n"
+    dest: "{{ web_root }}/index.html"

@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerName {{ vhost_servername }}
+{% for alias in vhost_serveraliases %}
+    ServerAlias {{ alias }}
+{% endfor %}
+    DocumentRoot {{ vhost_documentroot }}
+
+{% if vhost_error_log %}
+    ErrorLog "{{ vhost_error_log }}"
+{% endif %}
+{% if vhost_access_log %}
+    CustomLog "{{ vhost_access_log }}" {{ vhost_access_log_type }}
+{% endif %}
+
+    <Directory {{ vhost_documentroot }}>
+        Options {{ vhost_documentroot_options }}
+        AllowOverride {{ vhost_documentroot_override }}
+        Order Deny,Allow
+        Allow from all
+    </Directory>
+</VirtualHost>

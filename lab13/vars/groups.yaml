@@ -1,0 +1,7 @@
+---
+usergroups:
+- name: developers
+- name: admins
+  sudo: true
+- name: dbas
+...

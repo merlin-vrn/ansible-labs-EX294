@@ -1,0 +1,21 @@
+---
+- name: set default target and reboot a machine
+  hosts: nodes
+  vars:
+    target: multi-user
+  tasks:
+  - name: set the systemd boot target to {{ target }}
+    file:
+      path: /etc/systemd/system/default.target
+      state: link
+      src: /usr/lib/systemd/system/{{ target }}.target
+    register: target_set
+    notify: reboot if target changed
+  handlers:
+  - name: reboot if target changed
+    reboot:
+  post_tasks:
+  - name: show a success message
+    debug:
+      msg: "{{ ansible_host }} successfully rebooted"
+    when: target_set.changed

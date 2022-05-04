@@ -1,0 +1,31 @@
+---
+- name: install repository and install Nginx from it
+  hosts: nodes
+  vars_files:
+  - l12_vars/nodes.yaml
+  tasks:
+  - name: install a repository from a control node
+    yum_repository:
+      name: control
+      description: a repository from the control node
+      file: control
+      baseurl: "{{ repo_url }}"
+      gpgcheck: no
+      cost: 900 # to prefer it over default of 1000 repositories
+  - name: install {{ packages_to_install|join(", ") }} on managed nodes
+    package:
+      name: "{{ packages_to_install }}"
+
+- name: check if packages are present on managed nodes
+  hosts: nodes
+  vars_files:
+  - l12_vars/nodes.yaml
+  tasks:
+  - name: obtain package lists
+    package_facts:
+  - name: print out info about packages
+    debug:
+      var: ansible_facts.packages.{{ item }}
+    when: "item in ansible_facts.packages"
+    loop: "{{ packages_to_install }}"
+...

@@ -1,0 +1,15 @@
+[lamp]
+ansible1
+
+[file]
+ansible2
+
+[nodes:children]
+lamp
+file
+
+[mysql]
+ansible3
+
+[mysql:children]
+lamp

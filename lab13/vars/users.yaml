@@ -1,0 +1,15 @@
+---
+users:
+- name: bill
+  groups: admins
+- name: bob
+  groups: admins
+- name: bea
+  groups: developers
+- name: betty
+  groups: developers
+- name: brenda
+  groups: dbas
+- name: benny
+  groups: dbas
+...

@@ -1,0 +1,24 @@
+---
+- name: configure firewall
+  hosts: all
+  vars_files:
+  - lab-vars/allvars.yml
+  tasks:
+  - name: include the tasks
+    include: lab-tasks/firewall.yaml
+
+- name: configure lamp servers
+  hosts: lamp
+  vars_files:
+  - lab-vars/allvars.yml
+  tasks:
+  - name: include the tasks
+    include: lab-tasks/lamp.yml
+
+- name: configure file servers
+  hosts: file
+  vars_files:
+  - lab-vars/allvars.yml
+  tasks:
+  - name: include the tasks
+    include: lab-tasks/file.yml

@@ -1,0 +1,16 @@
+---
+# defaults file for apache_vhost
+
+# this must be overridden
+vhost_name: "test" # used to generate various internal structures: documentroot, log file names, etc.
+vhost_servername: "test.local"
+vhost_serveraliases: []
+
+vhost_file: /etc/httpd/conf.d/{{ vhost_name }}.conf
+vhost_documentroot: /var/www/{{ vhost_name }}
+vhost_error_log: logs/{{ vhost_name }}.error_log
+vhost_access_log: logs/{{ vhost_name }}.access_log
+vhost_access_log_type: common # or combined, or custom access log type if defined on the server
+
+vhost_documentroot_options: "Indexes" # see https://httpd.apache.org/docs/2.4/mod/core.html#options
+vhost_documentroot_override: "None" # whether to allow .htaccess to override options above; see #allowoverride on the same page
